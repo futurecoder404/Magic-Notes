@@ -1,8 +1,9 @@
 const NOTES_LOCAL_STORAGE_KEY = "notes";
 
 class Note {
-    constructor(content = "") {
+    constructor(title="", content = "") {
         this.uuid = crypto.randomUUID();
+        this.title = title;
         this.content = content;
     }
 
@@ -12,7 +13,7 @@ class Note {
      * @param {Object} obj - The object to convert to a Note object.
      * @returns {Note} A Note with the properties of the given object.
      * @example
-     *   Note.fromObj({uuid: "00000000-0000-4000-0000-000000000000", content: "Some text"})
+     *   Note.fromObj({uuid: "00000000-0000-4000-0000-000000000000", title: "Note 1", content: "Some text"})
      */
     static fromObj(obj) {
         return Object.assign(new Note(), obj);
@@ -64,19 +65,18 @@ function deleteNote(uuid) {
  */
 function updateDisplayedNotes() {
     const searchText = document.getElementById("searchTxt").value;
-    const notes = getNotes();
-    const matchedNotes = notes.filter((note) => note.content.includes(searchText.toLowerCase()));
-
     const notesContainerEle = document.getElementById("notes");
+    const notes = getNotes();
+    const matchedNotes = notes.filter((note) => note.title.includes(searchText.toLowerCase()) || note.content.includes(searchText.toLowerCase()));
 
     if (matchedNotes.length === 0) {
         notesContainerEle.innerHTML = `Nothing to show! Use "Add a Note" section above to add notes.`;
     } else {
-        const notesHtml = matchedNotes.map(function (note, index) {
+        const notesHtml = matchedNotes.map( (note) => {
             return `
                 <div class="noteCard my-2 mx-2 card" style="width: 18rem; box-shadow: 0 0 10px #333">
                     <div class="card-body">
-                        <h5 class="card-title">Note ${index + 1}</h5>
+                        <h5 class="card-title">${note.title}</h5>
                         <p class="card-text"> ${note.content}</p>
                         <button id="${note.uuid}"onclick="deleteNote(this.id)" class="btn btn-primary">Delete Note</button>
                     </div>
@@ -87,7 +87,7 @@ function updateDisplayedNotes() {
 }
 
 // Enables/disables the add button when the input field is updated
-document.getElementById("addTxt").addEventListener("input", (e) => {
+document.getElementById("txtContent").addEventListener("input", (e) => {
     const trimmedInputText = e.target.value.trim();
     document.getElementById("addBtn").disabled = trimmedInputText.length === 0;
 });
@@ -95,10 +95,11 @@ document.getElementById("addTxt").addEventListener("input", (e) => {
 // Adds a new note when the add button is clicked
 document.getElementById("addBtn").addEventListener("click", (e) => {
     e.target.disabled = true;
-    const noteContent = document.getElementById("addTxt").value;
-    const note = new Note(noteContent);
+    const title = document.getElementById("inpTitle").value.trim() || "Untitled";
+    const content = document.getElementById("txtContent").value;
+    const note = new Note(title, content);
     saveNewNote(note);
-    document.getElementById("addTxt").value = "";
+    document.getElementById("txtContent").value = "";
     updateDisplayedNotes();
 });
 
@@ -112,8 +113,7 @@ updateDisplayedNotes();  // Initialize with saved notes
 
 /*
 Further Features:
-1. Add Title
-2. Mark a note as Important
-3. Separate notes by user
-4. Sync and host to web server 
+1. Mark a note as Important
+2. Separate notes by user
+3. Sync and host to web server
 */
