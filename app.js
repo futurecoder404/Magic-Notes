@@ -1,11 +1,13 @@
 const NOTES_LOCAL_STORAGE_KEY = "notes";
 
 class Note {
-    constructor(title="", content = "", color = "white") {
+    constructor(title="", content = "", color = "white",time="00:00",date="1 Jan 1970") {
         this.uuid = crypto.randomUUID();
         this.title = title;
         this.content = content;
         this.color = color;
+        this.time = time ;
+        this.date = date ;
     }
 
     /**
@@ -89,6 +91,9 @@ function updateDisplayedNotes() {
                         <p class="card-text"> ${note.content}</p>
                         <button id="${note.uuid}"onclick="deleteNote(this.id)" class="btn btn-primary">Delete Note</button>
                     </div>
+                    <div class="card-footer text-muted">
+                       ${note.time} , ${note.date}
+                   </div>
                 </div>`;
         });
         notesContainerEle.innerHTML = notesHtml.join("\n");
@@ -107,7 +112,10 @@ document.getElementById("addBtn").addEventListener("click", (e) => {
     const title = document.getElementById("inpTitle").value.trim() || "Untitled";
     const content = document.getElementById("txtContent").value;
     const color = document.getElementById("selectorColor").value;
-    const note = new Note(title, content, color);
+    const d = new Date() ;
+    const time = d.getHours() + ":" + d.getMinutes() ;
+    const date = d.getDate() + "/" + d.getMonth() + "/" + d.getFullYear() ;
+    const note = new Note(title, content, color ,time , date);
     saveNewNote(note);
     document.getElementById("txtContent").value = "";
     updateDisplayedNotes();
