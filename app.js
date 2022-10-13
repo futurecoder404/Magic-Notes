@@ -1,10 +1,11 @@
 const NOTES_LOCAL_STORAGE_KEY = "notes";
 
 class Note {
-    constructor(title="", content = "") {
+    constructor(title="", content = "", color = "white") {
         this.uuid = crypto.randomUUID();
         this.title = title;
         this.content = content;
+        this.color = color;
     }
 
     /**
@@ -13,7 +14,7 @@ class Note {
      * @param {Object} obj - The object to convert to a Note object.
      * @returns {Note} A Note with the properties of the given object.
      * @example
-     *   Note.fromObj({uuid: "00000000-0000-4000-0000-000000000000", title: "Note 1", content: "Some text"})
+     *   Note.fromObj({uuid: "00000000-0000-4000-0000-000000000000", title: "Note 1", content: "Some text", color: "red"})
      */
     static fromObj(obj) {
         return Object.assign(new Note(), obj);
@@ -61,6 +62,14 @@ function deleteNote(uuid) {
 }
 
 /**
+ * This function delete all notes from the page.
+ */
+function deleteAllNotes() {
+    saveNotes([]);
+    updateDisplayedNotes();
+}
+
+/**
  * This function displays the notes (filtered by search text) on the page
  */
 function updateDisplayedNotes() {
@@ -70,11 +79,11 @@ function updateDisplayedNotes() {
     const matchedNotes = notes.filter((note) => note.title.includes(searchText.toLowerCase()) || note.content.includes(searchText.toLowerCase()));
 
     if (matchedNotes.length === 0) {
-        notesContainerEle.innerHTML = `Nothing to show! Use "Add a Note" section above to add notes.`;
+        notesContainerEle.innerHTML = `<div>Nothing to show! Use "Add a Note" section above to add notes.</div>`;
     } else {
         const notesHtml = matchedNotes.map( (note) => {
             return `
-                <div class="noteCard my-2 mx-2 card" style="width: 18rem; box-shadow: 0 0 10px #333">
+                <div class="noteCard my-2 mx-2 card" style="width: 18rem; box-shadow: 0 0 10px #333; background-color: ${note.color};">
                     <div class="card-body">
                         <h5 class="card-title">${note.title}</h5>
                         <p class="card-text"> ${note.content}</p>
@@ -97,7 +106,8 @@ document.getElementById("addBtn").addEventListener("click", (e) => {
     e.target.disabled = true;
     const title = document.getElementById("inpTitle").value.trim() || "Untitled";
     const content = document.getElementById("txtContent").value;
-    const note = new Note(title, content);
+    const color = document.getElementById("selectorColor").value;
+    const note = new Note(title, content, color);
     saveNewNote(note);
     document.getElementById("txtContent").value = "";
     updateDisplayedNotes();
@@ -106,6 +116,18 @@ document.getElementById("addBtn").addEventListener("click", (e) => {
 // Updates the visible notes when the search field is updated
 document.getElementById("searchTxt").addEventListener("input", () => {
     updateDisplayedNotes();
+});
+
+/** 
+ * Deletes all notes when the delete all button is triggered.
+ * Confirms with a prompt that requires to enter the word delete 
+ * If failed, alerts with the error message.
+ */
+document.getElementById('delAllBtn').addEventListener('click', () => {
+    const isDelete = prompt("Alert! You are about to remove all your notes. Type in \"delete\" to confirm.") === 'delete';
+    if(isDelete) return deleteAllNotes();
+
+    alert("Couldn't proceed. WARNING: case-sensitive");
 });
 
 console.log("Welcome to notes app. This is app.js");
