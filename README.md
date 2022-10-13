@@ -1,6 +1,6 @@
 # Magic Notes
 
-This here is the magic notes and sticky tools website to enhance user readability.
+Here is the magic notes and sticky tools website to enhance user readability.
 
 ## Preview
 
