@@ -1,12 +1,12 @@
 const NOTES_LOCAL_STORAGE_KEY = "notes";
-var currentColor = "rgb(255, 255, 255)";
 
 class Note {
-    constructor(content = "") {
+    constructor(title="", content = "", color = "white") {
         this.uuid = crypto.randomUUID();
+        this.title = title;
         this.content = content;
+        this.color = color;
     }
-
 
     /**
      * This function creates a Note object from an object. This is useful for converting the response from JSON.parse
@@ -14,7 +14,7 @@ class Note {
      * @param {Object} obj - The object to convert to a Note object.
      * @returns {Note} A Note with the properties of the given object.
      * @example
-     *   Note.fromObj({uuid: "00000000-0000-4000-0000-000000000000", content: "Some text"})
+     *   Note.fromObj({uuid: "00000000-0000-4000-0000-000000000000", title: "Note 1", content: "Some text", color: "red"})
      */
     static fromObj(obj) {
         return Object.assign(new Note(), obj);
@@ -74,32 +74,29 @@ function deleteAllNotes() {
  */
 function updateDisplayedNotes() {
     const searchText = document.getElementById("searchTxt").value;
-    const notes = getNotes();
-    const matchedNotes = notes.filter((note) => note.content.includes(searchText.toLowerCase()));
-
     const notesContainerEle = document.getElementById("notes");
+    const notes = getNotes();
+    const matchedNotes = notes.filter((note) => note.title.includes(searchText.toLowerCase()) || note.content.includes(searchText.toLowerCase()));
 
     if (matchedNotes.length === 0) {
-        notesContainerEle.innerHTML = `Nothing to show! Use "Add a Note" section above to add notes.`;
-        document.getElementById('delAllBtn').disabled = true;
+        notesContainerEle.innerHTML = `<div>Nothing to show! Use "Add a Note" section above to add notes.</div>`;
     } else {
-        const notesHtml = matchedNotes.map(function (note, index) {
+        const notesHtml = matchedNotes.map( (note) => {
             return `
-            <div class="noteCard my-2 mx-2 card" style="width: 18rem; box-shadow: 0 0 10px #333; background-color: ${currentColor};">
+                <div class="noteCard my-2 mx-2 card" style="width: 18rem; box-shadow: 0 0 10px #333; background-color: ${note.color};">
                     <div class="card-body">
-                        <h5 class="card-title">Note ${index + 1}</h5>
+                        <h5 class="card-title">${note.title}</h5>
                         <p class="card-text"> ${note.content}</p>
                         <button id="${note.uuid}"onclick="deleteNote(this.id)" class="btn btn-primary">Delete Note</button>
                     </div>
                 </div>`;
         });
-        document.getElementById('delAllBtn').disabled = false;
         notesContainerEle.innerHTML = notesHtml.join("\n");
     }
 }
 
 // Enables/disables the add button when the input field is updated
-document.getElementById("addTxt").addEventListener("input", (e) => {
+document.getElementById("txtContent").addEventListener("input", (e) => {
     const trimmedInputText = e.target.value.trim();
     document.getElementById("addBtn").disabled = trimmedInputText.length === 0;
 });
@@ -107,10 +104,12 @@ document.getElementById("addTxt").addEventListener("input", (e) => {
 // Adds a new note when the add button is clicked
 document.getElementById("addBtn").addEventListener("click", (e) => {
     e.target.disabled = true;
-    const noteContent = document.getElementById("addTxt").value;
-    const note = new Note(noteContent);
+    const title = document.getElementById("inpTitle").value.trim() || "Untitled";
+    const content = document.getElementById("txtContent").value;
+    const color = document.getElementById("selectorColor").value;
+    const note = new Note(title, content, color);
     saveNewNote(note);
-    document.getElementById("addTxt").value = "";
+    document.getElementById("txtContent").value = "";
     updateDisplayedNotes();
 });
 
@@ -134,25 +133,9 @@ document.getElementById('delAllBtn').addEventListener('click', () => {
 console.log("Welcome to notes app. This is app.js");
 updateDisplayedNotes();  // Initialize with saved notes
 
-function changeColor(string) {
-    var button = document.getElementById(string);
-
-    if(button.value == "btn1"){
-      currentColor = "rgb(0, 255, 255)";
-    }
-    else if(button.value == "btn2"){
-      currentColor = "rgb(255, 215, 0)";
-    }
-    else if(button.value == "btn3"){
-      currentColor = "rgb(255, 105, 180)";
-    }
-    updateDisplayedNotes();
-}
-
 /*
 Further Features:
-1. Add Title
-2. Mark a note as Important
-3. Separate notes by user
-4. Sync and host to web server 
+1. Mark a note as Important
+2. Separate notes by user
+3. Sync and host to web server
 */
