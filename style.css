@@ -1,3 +1,23 @@
+:root
+{
+    --dark:#374151;
+    --darker:#1F2937;
+    --darkest:#111827;
+    --gray:#687280;
+    --light:#EEE;
+    --pink:#EC4899;
+    --purple:#8B5Cf6;
+}
+
+label,h1
+{
+    color: var(--light);
+}
+
+body{
+    background-color: var(--darkest);
+}
+
 #btn1 {
     background-color: rgb(0, 255, 255);
 }
