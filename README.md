@@ -1,7 +1,5 @@
 # Magic Notes
-
-Here is the magic notes and sticky tools website to enhance user readability.
-
+Need some real help organizing your daily life? Want a really easy solution that's always there when you need it?
 ## Preview
 
 You can view a live demo of this is software here: https://shubhamkrsingh21.github.io/Magic-Notes/
