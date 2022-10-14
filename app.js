@@ -79,7 +79,7 @@ function updateDisplayedNotes() {
     const matchedNotes = notes.filter((note) => note.title.includes(searchText.toLowerCase()) || note.content.includes(searchText.toLowerCase()));
 
     if (matchedNotes.length === 0) {
-        notesContainerEle.innerHTML = `<div>Nothing to show! Use "Add a Note" section above to add notes.</div>`;
+        notesContainerEle.innerHTML = `<div style="color:white">Nothing to show! Use "Add a Note" section above to add notes.</div>`;
     } else {
         const notesHtml = matchedNotes.map( (note) => {
             return `
