@@ -9,6 +9,19 @@
     --purple:#8B5Cf6;
 }
 
+.myBtn
+{
+    border: none;
+    color: var(--pink);
+    font-size: 1.25rem;
+    font-weight: 700;
+    background: linear-gradient(to right,var(--pink),var(--purple));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    cursor: pointer;
+    transition: 0.4s;
+}
+
 label,h1
 {
     color: var(--light);
