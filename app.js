@@ -100,6 +100,7 @@ function updateDisplayedNotes() {
                         <h5 class="card-title">${note.title}</h5>
                         <p class="card-text"> ${note.content}</p>
                         <button id="${note.uuid}"onclick="deleteNote(this.id)" class="btn btn-primary">Delete Note</button>
+                        <button id="Imp"onclick="deleteNote(this.id)" class="btn btn-primary" style="float: right">Mark Imp</button>
                     </div>
                     <div class="card-footer text-muted">
                        ${note.time} , ${note.date}
