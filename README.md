@@ -1,5 +1,5 @@
 # Magic Notes
-Need some real help organizing your daily life?
+Need some real help organizing your daily life better?
 ## Preview
 
 You can view a live demo of this is software here: https://shubhamkrsingh21.github.io/Magic-Notes/
