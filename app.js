@@ -2,6 +2,7 @@ const NOTES_LOCAL_STORAGE_KEY = "notes";
 
 class Note {
   constructor(
+    imp= "",
     title = "",
     content = "",
     color = "white",
@@ -9,6 +10,7 @@ class Note {
     date = "1 Jan 1970"
   ) {
     this.uuid = crypto.randomUUID();
+    this.imp = imp;
     this.title = title;
     this.content = content;
     this.color = color;
@@ -77,6 +79,10 @@ function deleteAllNotes() {
   updateDisplayedNotes();
 }
 
+function markImp(){
+  document.getElementById("impText").style.display = "block";
+}
+
 /**
  * This function displays the notes (filtered by search text) on the page
  */
@@ -97,10 +103,11 @@ function updateDisplayedNotes() {
       return `
                 <div class="noteCard my-2 mx-2 card" style="width: 18rem; box-shadow: 0 0 10px #333; background-color: ${note.color};">
                     <div class="card-body">
+                        <h4 id="impText" style="display: none">Imp.</h4>
                         <h5 class="card-title">${note.title}</h5>
                         <p class="card-text"> ${note.content}</p>
                         <button id="${note.uuid}"onclick="deleteNote(this.id)" class="btn btn-primary">Delete Note</button>
-                        <button id="Imp"onclick="deleteNote(this.id)" class="btn btn-primary" style="float: right">Mark Imp</button>
+                        <button id="${note.imp}" onclick="markImp(this.imp)" class="btn btn-primary" style="float: right">Mark Imp</button>
                     </div>
                     <div class="card-footer text-muted">
                        ${note.time} , ${note.date}
