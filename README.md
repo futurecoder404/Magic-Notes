@@ -15,3 +15,5 @@ This web application function is a similar to Google's Keep Notes, providing the
 Apart from adding new notes, user can even delete the notes once completed. All the notes are stored in local storage of the browser.
 
 ![image](https://user-images.githubusercontent.com/58097612/194623138-93d557f0-ca74-4b37-adec-654500960147.png)
+
+Thank You!!
