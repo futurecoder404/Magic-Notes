@@ -21,6 +21,20 @@
     cursor: pointer;
     transition: 0.4s;
 }
+.main_heading{
+    
+		color: hsl(187, 100%, 50%);
+		text-decoration-style: dashed;
+		
+		font-family: "Times New Roman", Times, serif;
+		
+	   margin-top: 5%;
+		font-weight: 800;
+		font-size: 250%;
+		text-align-last: center;
+		text-decoration-line:underline;
+		text-transform: uppercase;
+	}
 nav{
 	position: relative;
 	margin: 270px auto 0;
