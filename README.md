@@ -7,7 +7,7 @@ You can view a live demo of this is software here: https://shubhamkrsingh21.gith
 ![image](https://user-images.githubusercontent.com/58097612/194622645-a0421d4a-4bd4-4314-9e07-79e2a7d81fbe.png)
 
 ## Functionality
-this is the functionality sectiom!!!!!
+this is the functionality sectiom!!!
 
 This web application function is a similar to Google's Keep Notes, providing the functionality to add more notes.
 
