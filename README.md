@@ -18,4 +18,4 @@ Apart from adding new notes, user can even delete the notes once completed. All 
 
 
 This project will help you in keeping notes like add notes and delete notes according to your requirement.
-Thank You!!
+Thank You
