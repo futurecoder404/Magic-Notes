@@ -1,5 +1,6 @@
 # Magic Notes
 Need some real help organizing your daily life better?
+This is a repo for the project 
 ## Preview
 This is the preview section
 
