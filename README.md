@@ -5,7 +5,7 @@ This is a repo for the project
 This is the preview section
 update the preview section
 You can view a live demo of this is software here: https://shubhamkrsingh21.github.io/Magic-Notes/
-
+Live demo provide you with clear idea how this software work and good is it
 ![image](https://user-images.githubusercontent.com/58097612/194622645-a0421d4a-4bd4-4314-9e07-79e2a7d81fbe.png)
 
 ## Functionality
