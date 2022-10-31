@@ -20,5 +20,5 @@ Apart from adding new notes, user can even delete the notes once completed. All 
 ![image](https://user-images.githubusercontent.com/58097612/194623138-93d557f0-ca74-4b37-adec-654500960147.png)
 
 
-This project will help you in keeping notes like add notes and delete notes according to your requirement.
+This project will help you in keeping notes like for examples, add notes and delete notes according to your requirement.
 Thank You
